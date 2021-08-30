@@ -1,4 +1,4 @@
-const { Product } = require('./Product');
+const { Product } = require("./Product");
 
 class Cart {
   constructor() {
@@ -6,7 +6,6 @@ class Cart {
   }
 
   add(product) {
-    product = new Product({ name, price, taxable });
     this.items.push(product);
   }
 
@@ -16,21 +15,25 @@ class Cart {
 
   getTotalBeforeTax() {
     let price = 0;
-    for (i = 0; i <= this.items.length; i++) {
-      price += this.items[i];
+    for (let item of this.items) {
+      price += item.price;
     }
     return price;
   }
 
-  getTotalWithTax() {}
+  getTotalWithTax() {
+    let price = 0;
+    for (let item of this.items) {
+      price += item.getPriceWithTax();
+    }
+    return price;
+  }
 
   getTax() {
-      const tax = this.getTotalWithTax - this.getTotalBeforeTax;
-      return tax;
+    return this.getTotalWithTax() - this.getTotalBeforeTax();
   }
 }
 module.exports = { Cart };
-module.exports = { Product };
 
 // In the file Cart.js, create a Cart class and export it.
 // The constructor has no parameters. It always sets an items property
